@@ -6,7 +6,19 @@ import registerServiceWorker from './registerServiceWorker';
 
 import { createStore } from 'redux';
 
-function reducer() {
+// REDUCER
+// how does a reducer read an action to update the store's state?
+// it had 2 parameters: the initial state of the reducer, an action
+// a reducer listens to every action that is sent
+// need to figure what to do for each action
+function reducer( state, action ) {
+  // make sure the the reducer is receiving the action
+  console.log( action );
+
+  if ( action.type === 'changeState' ) {
+    return action.payload.newState;
+  }
+
   return 'State';
 };
 
@@ -15,6 +27,7 @@ function reducer() {
 const store = createStore( reducer );
 
 // see the state of the store
+// before action dispatched
 console.log( store.getState() );
 
 // ACTION
@@ -29,6 +42,9 @@ const action = {
 // DISPATCH
 // send action to store
 store.dispatch( action );
+
+// logging state after action dispatched
+console.log( store.getState() );
 
 ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();
