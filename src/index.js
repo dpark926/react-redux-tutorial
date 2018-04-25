@@ -23,7 +23,11 @@ const allReducers = combineReducers({
 })
 
 // STORE
-const store = createStore( allReducers );
+// pass initial state (prepopulated) as second argument
+const store = createStore( allReducers, {
+  products: [{name: 'iPhone' }],
+  user: 'Michael'
+});
 console.log( store.getState() );
 
 // // REDUCER
