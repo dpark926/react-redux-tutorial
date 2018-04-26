@@ -14,6 +14,11 @@ function productsReducer( state = [], action ) {
 };
 
 function userReducer( state = '', action ) {
+  switch ( action.type ) {
+    case 'updateUser':
+      return action.payload;
+  }
+
   return state;
 };
 
@@ -24,11 +29,27 @@ const allReducers = combineReducers({
 
 // STORE
 // pass initial state (prepopulated) as second argument
-const store = createStore( allReducers, {
-  products: [{name: 'iPhone' }],
-  user: 'Michael'
-});
+// setting up redux devtool as third argument
+const store = createStore(
+  allReducers,
+  {
+    products: [{name: 'iPhone' }],
+    user: 'Michael'
+  },
+  window.devToolsExtension && window.devToolsExtension()
+);
+
 console.log( store.getState() );
+
+// ACTIONS
+const updateUserAction = {
+  type: 'updateUser',
+  payload: {
+    user: 'John'
+  }
+}
+
+store.dispatch( updateUserAction );
 
 // // REDUCER
 // // how does a reducer read an action to update the store's state?
