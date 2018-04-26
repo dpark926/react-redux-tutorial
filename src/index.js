@@ -7,6 +7,8 @@ import registerServiceWorker from './registerServiceWorker';
 // combineReducers allows multiple reducers to be combined into a single reducer
 // to be passed into the store
 import { combineReducers, createStore } from 'redux';
+// the whole app can access the store
+import { Provider } from 'react-redux';
 
 // REDUCERS
 function productsReducer( state = [], action ) {
@@ -38,18 +40,6 @@ const store = createStore(
   },
   window.devToolsExtension && window.devToolsExtension()
 );
-
-console.log( store.getState() );
-
-// ACTIONS
-const updateUserAction = {
-  type: 'updateUser',
-  payload: {
-    user: 'John'
-  }
-}
-
-store.dispatch( updateUserAction );
 
 // // REDUCER
 // // how does a reducer read an action to update the store's state?
@@ -91,5 +81,5 @@ store.dispatch( updateUserAction );
 // // logging state after action dispatched
 // console.log( store.getState() );
 
-ReactDOM.render(<App/>, document.getElementById('root'));
+ReactDOM.render(<Provider store={ store }><App/></Provider>, document.getElementById('root'));
 registerServiceWorker();
